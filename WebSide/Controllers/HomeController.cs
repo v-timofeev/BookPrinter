@@ -44,6 +44,7 @@ namespace WebSide.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [DisableRequestSizeLimit]
         [HttpPost]
         public async Task<IActionResult> AddFile(IFormFile uploadedFile)
         {
