@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebSide.Models;
 
 namespace WebSide
 {
@@ -13,6 +14,7 @@ namespace WebSide
     {
         public static void Main(string[] args)
         {
+            ConvertedBook convertedBook =   new ConvertedBook();
             CreateHostBuilder(args).Build().Run();
         }
 
