@@ -31,10 +31,10 @@ namespace WebSide.Models
             // (Note: one page contains two pages from the source document)
             outputDocument.PageLayout = PdfPageLayout.SinglePage;
 
-            XFont font = new XFont("Verdana", 8, XFontStyle.Bold);
-            XStringFormat format = new XStringFormat();
-            format.Alignment = XStringAlignment.Center;
-            format.LineAlignment = XLineAlignment.Far;
+            //XFont font = new XFont("Verdana", 8, XFontStyle.Bold);
+            //XStringFormat format = new XStringFormat();
+            //format.Alignment = XStringAlignment.Center;
+            //format.LineAlignment = XLineAlignment.Far;
             XGraphics gfx;
             XRect box;
 
@@ -61,9 +61,9 @@ namespace WebSide.Models
                 gfx.DrawImage(form, box);
 
                 // Write document file name and page number on each page
-                box.Inflate(0, -10);
-                gfx.DrawString(String.Format("- {1} -", filename, idx + 1),
-                  font, XBrushes.Red, box, format);
+                //box.Inflate(0, -10);
+                //gfx.DrawString(String.Format("- {1} -", filename, idx + 1),
+                //  font, XBrushes.Red, box, format);
 
                 if (idx + 1 < form.PageCount)
                 {
@@ -75,9 +75,9 @@ namespace WebSide.Models
                     gfx.DrawImage(form, box);
 
                     // Write document file name and page number on each page
-                    box.Inflate(0, -10);
-                    gfx.DrawString(String.Format("- {1} -", filename, idx + 2),
-                      font, XBrushes.Red, box, format);
+                    //box.Inflate(0, -10);
+                    //gfx.DrawString(String.Format("- {1} -", filename, idx + 2),
+                    //  font, XBrushes.Red, box, format);
                 }
             }
 
