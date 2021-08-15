@@ -14,7 +14,7 @@ namespace WebSide
     {
         public static void Main(string[] args)
         {
-            ConvertedBook convertedBook =   new ConvertedBook();
+            //ConvertedBook convertedBook =   new ConvertedBook();
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -7,9 +7,12 @@ namespace WebSide.Models
 {
     public class BookModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Path { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string FileName {  get; set; }
+        public string OriginBookPath { get; set; }
+        public string ConvertedBookPath { get; set; }
+        public int BlankPageIndex { get; set; } = 0;
+        public int SheetsOfNotebook { get; set; } = 4;
 
     }
 }

@@ -1,14 +1,25 @@
 ﻿@{
     ViewData["Title"] = "Добавление книги";
+
 }
 
+
 <div class="col-md-8">
-    <h3>Выберите книгу для загрузки</h3>
-    <form asp-action="AddFile" asp-controller="Home" method="post" enctype="multipart/form-data">
-        <input type="file" name="uploadedFile" /><br>
-        <input type="submit" value="Загрузить" />
-    </form>
+    @if (Model == null)
+    {
+        <h1></h1>
+        <h3>Выберите книгу для загрузки</h3>
+        <form asp-action="AddFile" asp-controller="Home" method="post" enctype="multipart/form-data">
+            <input type="file" name="uploadedFile" /><br>
+            <input type="submit" value="Загрузить" />
+        </form> 
+    }
+    else
+    {
+        <h1>@Model.FileName</h1>
+    }
 </div>
+
 @*<h3>Все файлы</h3>
 @foreach(var f in Model)
 {
