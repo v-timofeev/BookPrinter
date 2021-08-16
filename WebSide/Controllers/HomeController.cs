@@ -30,9 +30,9 @@ namespace WebSide.Controllers
         {
 
             return new ContentResult {
-                Content = $"{HttpContext.Session.Keys}"
+                Content = $"{HttpContext.Session}"
             };
-            //return View(_context.Files.ToList());
+            //return View();
         }   
 
 
