@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WebSide.Models;
+using WebSide.Services;
 
 namespace WebSide.Controllers
 {
@@ -18,21 +19,45 @@ namespace WebSide.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IWebHostEnvironment _appEnvironment;
+        UsersModel _user;
         BookModel _book;
+        SessionsService _sessions;
         
-        public HomeController(IWebHostEnvironment hostEnvironment, ILogger<HomeController> logger)
+        private void UserSync()
+        {
+            if (HttpContext.Session.Keys.Contains("UserID"))
+            {
+                _user = _sessions.TryGetUserById(Guid.Parse(HttpContext.Session.GetString("UserID")));
+            }
+            else
+            {
+                Guid guid = Guid.NewGuid();
+                HttpContext.Session.SetString("UserID", guid.ToString());
+                _sessions.AddUser(new UsersModel { Id = guid });
+                _user = _sessions.TryGetUserById(guid);
+            }
+        }
+
+        public HomeController(IWebHostEnvironment hostEnvironment, ILogger<HomeController> logger, SessionsService sessions)
         {
             _appEnvironment = hostEnvironment;
             _logger = logger;
+            _sessions = sessions;
         }
 
         public IActionResult Index()
         {
+            UserSync();
 
-            return new ContentResult {
-                Content = $"{HttpContext.Session}"
-            };
-            //return View();
+            if (_user.Book == null)
+                return View();
+            else
+                return View(_user.Book);
+
+            //return new ContentResult {
+            //    Content = $"{HttpContext.Session.GetString("UserID")}"
+            //};
+            //
         }   
 
 
@@ -51,8 +76,9 @@ namespace WebSide.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFile(IFormFile uploadedFile)
         {
+            UserSync();
             _book = new BookModel();
-
+            
             if (uploadedFile != null)
             {
                 string _savePath = _appEnvironment.WebRootPath + $"/files/{DateTime.Now:yyyy}-{DateTime.Now:MM}-{DateTime.Now:dd}/";
@@ -66,9 +92,11 @@ namespace WebSide.Controllers
                     await uploadedFile.CopyToAsync(fileStream);
                 }
                 _book.FileName = uploadedFile.FileName;
+                _user.Book = _book;
             }
-
+            
             return RedirectToAction("Index");
         }
+
     }
 }

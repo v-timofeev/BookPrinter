@@ -2,23 +2,31 @@
     ViewData["Title"] = "Добавление книги";
 
 }
-
+@model WebSide.Models.BookModel
 
 <div class="col-md-8">
     @if (Model == null)
     {
-        <h1></h1>
+        <h1>Хеллоу зэрэ</h1>
         <h3>Выберите книгу для загрузки</h3>
         <form asp-action="AddFile" asp-controller="Home" method="post" enctype="multipart/form-data">
             <input type="file" name="uploadedFile" /><br>
             <input type="submit" value="Загрузить" />
         </form> 
     }
-    else
+    else if(String.IsNullOrWhiteSpace(Model.ConvertedBookPath))
     {
-        <h1>@Model.FileName</h1>
+        <h3>@Model.FileName</h3>
+        <form asp-action="AddSettings" asp-controller="Home" method="post"  enctype="multipart/form-data">
+            <p>Колличество листов в тетради<input type="text" name="SheetsOfNotebook" value="4" /></p>
+            <p>Добавить пустой лист на страницу<input type="number" name="BlankPageIndex" value="0" /></p>
+            <input type="submit" value="Конвертировать" />
+        </form>
     }
 </div>
+
+
+
 
 @*<h3>Все файлы</h3>
 @foreach(var f in Model)

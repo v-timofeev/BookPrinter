@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebSide.Models;
+using WebSide.Services;
 
 namespace WebSide
 {
@@ -27,6 +28,7 @@ namespace WebSide
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
             services.AddSession();
+            services.AddSingleton<SessionsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
